@@ -1,3 +1,8 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+ title: "Board"
+};
 interface BoardProps {
   searchParams: Promise<{ q?: string }>;
 }
