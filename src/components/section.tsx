@@ -1,8 +1,7 @@
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-//--------------------------------------------------------------
-
+//---------------- SectionRoot --------------------------
 interface SectionRootProps extends ComponentProps<"div"> {}
 
 function SectionRoot({className, ...props}: SectionRootProps) {
@@ -11,8 +10,7 @@ function SectionRoot({className, ...props}: SectionRootProps) {
   );
 }
 
-//--------------------------------------------------------------
-
+//---------------- SectionHeader --------------------------
 interface SectionHeaderProps extends ComponentProps<"div"> { }
 
 function SectionHeader({className, ...props}: SectionHeaderProps) {
@@ -21,8 +19,7 @@ function SectionHeader({className, ...props}: SectionHeaderProps) {
   );
 }
 
-//--------------------------------------------------------------
-
+//---------------- SectionTitle --------------------------
 interface SectionTitleProps extends ComponentProps<"span"> { }
 
 function SectionTitle({className, ...props}: SectionTitleProps) {
@@ -31,8 +28,7 @@ function SectionTitle({className, ...props}: SectionTitleProps) {
   );
 }
 
-//--------------------------------------------------------------
-
+//---------------- SectionIssueCount --------------------------
 interface SectionIssueCountProps extends ComponentProps<"span"> { }
 
 function SectionIssueCount({className, ...props}: SectionIssueCountProps) {
@@ -41,8 +37,7 @@ function SectionIssueCount({className, ...props}: SectionIssueCountProps) {
   );
 }
 
-//--------------------------------------------------------------
-
+//---------------- SectionContent --------------------------
 interface SectionContentProps extends ComponentProps<"div"> { }
 
 function SectionContent({className, ...props}: SectionContentProps) {
@@ -52,11 +47,10 @@ function SectionContent({className, ...props}: SectionContentProps) {
 }
 
 //--------------------------------------------------------------
-
 export const Section = {
   Root: SectionRoot,
   Header: SectionHeader,
   Title: SectionTitle,
   IssueCount: SectionIssueCount,
   Content: SectionContent,
-}
+};
