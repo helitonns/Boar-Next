@@ -1,6 +1,7 @@
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
+import { listIssues } from "@/http/list-issues";
 import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react";
 import { Metadata } from "next";
 
@@ -14,6 +15,8 @@ interface BoardProps {
 export default async function Board({ searchParams } : BoardProps) {
   const { q } = await searchParams;
 
+  const issues = await listIssues();
+
   return (
       <div className="max-w-405 w-full mx-auto p-10 flex flex-col gap-8 h-dvh">
         <main className="grid grid-cols-4 gap-5 flex-1 items-stretch">
@@ -23,26 +26,121 @@ export default async function Board({ searchParams } : BoardProps) {
                 <ArchiveIcon className="size-4" />
                 Backlog
               </Section.Title>
-              <Section.IssueCount>32</Section.IssueCount>
+            <Section.IssueCount>{issues.backlog.length}</Section.IssueCount>
             </Section.Header>
   
             <Section.Content>
-              <Card.Root href="/">
-                <Card.Header>
-                  <Card.Number>ECO-1234</Card.Number>
-                  <Card.Title>Design new landing page</Card.Title>
-                </Card.Header>
-                <Card.Footer>
-                  <Button>
-                    <ThumbsUpIcon className="size-3" />
-                    <span className="text-sm">12</span>
-                  </Button>
-                  <Button>
-                    <MessageCircleIcon className="size-3" />
-                    <span className="text-sm">6</span>
-                  </Button>
-                </Card.Footer>
-              </Card.Root>
+              {issues.backlog.map(issue => (
+                <Card.Root key={issue.id}>
+                  <Card.Header>
+                    <Card.Number>ISS-{issue.issueNumber}</Card.Number>
+                    <Card.Title>{issue.title}</Card.Title>
+                  </Card.Header>
+                  <Card.Footer>
+                    <Button>
+                      <ThumbsUpIcon className="size-3" />
+                      <span className="text-sm">12</span>
+                    </Button>
+                    <Button>
+                      <MessageCircleIcon className="size-3" />
+                      <span className="text-sm">6</span>
+                    </Button>
+                  </Card.Footer>
+                </Card.Root>
+              ))}
+            </Section.Content>
+          </Section.Root>
+
+          <Section.Root>
+            <Section.Header>
+              <Section.Title>
+                <ArchiveIcon className="size-4" />
+                To Do
+              </Section.Title>
+            <Section.IssueCount>{issues.todo.length}</Section.IssueCount>
+            </Section.Header>
+  
+            <Section.Content>
+            {issues.todo.map(issue => (
+                <Card.Root key={issue.id}>
+                  <Card.Header>
+                    <Card.Number>ISS-{issue.issueNumber}</Card.Number>
+                    <Card.Title>{issue.title}</Card.Title>
+                  </Card.Header>
+                  <Card.Footer>
+                    <Button>
+                      <ThumbsUpIcon className="size-3" />
+                      <span className="text-sm">12</span>
+                    </Button>
+                    <Button>
+                      <MessageCircleIcon className="size-3" />
+                      <span className="text-sm">6</span>
+                    </Button>
+                  </Card.Footer>
+                </Card.Root>
+              ))}
+            </Section.Content>
+          </Section.Root>
+
+          <Section.Root>
+            <Section.Header>
+              <Section.Title>
+                <ArchiveIcon className="size-4" />
+                In Progress
+              </Section.Title>
+            <Section.IssueCount>{issues.in_progress.length}</Section.IssueCount>
+            </Section.Header>
+  
+            <Section.Content>
+            {issues.in_progress.map(issue => (
+                <Card.Root key={issue.id}>
+                  <Card.Header>
+                    <Card.Number>ISS-{issue.issueNumber}</Card.Number>
+                    <Card.Title>{issue.title}</Card.Title>
+                  </Card.Header>
+                  <Card.Footer>
+                    <Button>
+                      <ThumbsUpIcon className="size-3" />
+                      <span className="text-sm">12</span>
+                    </Button>
+                    <Button>
+                      <MessageCircleIcon className="size-3" />
+                      <span className="text-sm">6</span>
+                    </Button>
+                  </Card.Footer>
+                </Card.Root>
+              ))}
+            </Section.Content>
+          </Section.Root>
+          
+          <Section.Root>
+            <Section.Header>
+              <Section.Title>
+                <ArchiveIcon className="size-4" />
+                Done
+              </Section.Title>
+            <Section.IssueCount>{issues.done.length}</Section.IssueCount>
+            </Section.Header>
+  
+            <Section.Content>
+            {issues.done.map(issue => (
+                <Card.Root key={issue.id}>
+                  <Card.Header>
+                    <Card.Number>ISS-{issue.issueNumber}</Card.Number>
+                    <Card.Title>{issue.title}</Card.Title>
+                  </Card.Header>
+                  <Card.Footer>
+                    <Button>
+                      <ThumbsUpIcon className="size-3" />
+                      <span className="text-sm">12</span>
+                    </Button>
+                    <Button>
+                      <MessageCircleIcon className="size-3" />
+                      <span className="text-sm">6</span>
+                    </Button>
+                  </Card.Footer>
+                </Card.Root>
+              ))}
             </Section.Content>
           </Section.Root>
         </main>
