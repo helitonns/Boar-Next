@@ -2,7 +2,7 @@ import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react";
-import { Header } from "./(board)/header";
+import { Header } from "./(board)/header/header";
 
 
 export default function Home() {

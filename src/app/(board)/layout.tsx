@@ -1,4 +1,4 @@
-import { Header } from "@/app/(board)/header";
+import { Header } from "@/app/(board)/header/header";
 
 export default function BoardLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
   return (
