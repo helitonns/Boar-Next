@@ -2,15 +2,14 @@ import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react";
+import { Header } from "./(board)/header";
 
 
 export default function Home() {
   return (
-    <div className="max-w-405 w-full mx-auto p-10 flex felx-col gap-8 h-dvh">
-      <div />
-
+    <div className="max-w-405 w-full mx-auto p-10 flex flex-col gap-8 h-dvh">
+      <Header />
       <main className="grid grid-cols-4 gap-5 flex-1 items-stretch">
-
         <Section.Root>
           <Section.Header>
             <Section.Title>
@@ -39,8 +38,6 @@ export default function Home() {
             </Card.Root>
           </Section.Content>
         </Section.Root>
-
-        
       </main>
     </div>
   );
