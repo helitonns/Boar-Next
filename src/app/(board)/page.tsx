@@ -36,7 +36,7 @@ export default async function Board({ searchParams }: BoardProps) {
               </div>
             ) : (
               issues.backlog.map(issue => (
-                <Card.Root key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ISS-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -73,7 +73,7 @@ export default async function Board({ searchParams }: BoardProps) {
               </div>
             ) : (
               issues.todo.map(issue => (
-                <Card.Root key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ISS-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -110,7 +110,7 @@ export default async function Board({ searchParams }: BoardProps) {
               </div>
             ) : (
               issues.in_progress.map(issue => (
-                <Card.Root key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ISS-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
@@ -146,7 +146,7 @@ export default async function Board({ searchParams }: BoardProps) {
               </div>
             ) : (
               issues.done.map(issue => (
-                <Card.Root key={issue.id}>
+                <Card.Root href={`/issues/${issue.id}`} key={issue.id}>
                   <Card.Header>
                     <Card.Number>ISS-{issue.issueNumber}</Card.Number>
                     <Card.Title>{issue.title}</Card.Title>
