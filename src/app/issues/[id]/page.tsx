@@ -3,7 +3,9 @@ import { getIssue } from "@/http/get-issue";
 import { ArchiveIcon, MoveLeftIcon, ThumbsUpIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { IssueCommentsList } from "./issue-comments/issue-comments-list";
+import { IssueCommentsSkeleton } from "./issue-comments/issue-commests-skeleton";
 
 export const generateMetadata = async ({ params }: IssuePageProps): Promise<Metadata> => {
   const { id } = await params;
@@ -58,7 +60,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
         <form />
 
         <div className="mt-3">
-          <IssueCommentsList issueId={issue.id} />
+          <Suspense fallback={<IssueCommentsSkeleton />}>
+            <IssueCommentsList issueId={issue.id} />
+          </Suspense>
         </div>
       </div>
     </main>

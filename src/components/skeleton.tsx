@@ -1,4 +1,4 @@
-import { Component, ComponentProps } from "react";
+import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface SkeletonProps extends ComponentProps<"div"> {}
