@@ -1,12 +1,13 @@
-import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import { Skeleton } from "@/components/skeleton";
 import { getIssue } from "@/http/get-issue";
-import { ArchiveIcon, MessageCircleIcon, MoveLeftIcon, ThumbsUpIcon } from "lucide-react";
+import { ArchiveIcon, MessageCircleIcon, MoveLeftIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { IssueCommentsList } from "./issue-comments/issue-comments-list";
 import { IssueCommentsSkeleton } from "./issue-comments/issue-commests-skeleton";
+import { IssueLikeButton } from "./issue-like-button";
 
 export const generateMetadata = async ({ params }: IssuePageProps): Promise<Metadata> => {
   const { id } = await params;
@@ -45,10 +46,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
           {STATUS_LABELS[issue.status]}
         </span>
 
-        <Button>
-          <ThumbsUpIcon className="size-3" />
-          <span className="text-sm">12</span>
-        </Button>
+        <Suspense fallback={<Skeleton className="h-7 w-16" />}>
+          <IssueLikeButton issueId={issue.id} />
+        </Suspense>
       </div>
 
       <div className="space-y-2 mt-4">
@@ -60,7 +60,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
         <span className="font-semibold">Comments</span>
 
         <form className="relative w-full">
-          <Input className="bg-navy-900 h-11 pr-24 w-full" placeholder="Leave a comment..."/>
+          <Input className="bg-navy-900 h-11 pr-24 w-full" placeholder="Leave a comment..." />
           <button
             type="submit"
             className="flex items-center gap-2 text-indigo-400 absolute right-3 top-1/2 -translate-y-1/2
