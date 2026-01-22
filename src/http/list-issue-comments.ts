@@ -8,6 +8,7 @@ interface ListIsssueComments {
 
 
 export async function listIsssueComments({ issueId }: ListIsssueComments = {}) {
+  "use cache";
   //await setTimeout(2000);
 
   const url = new URL(`/api/issues/${issueId}/comments`, clientEnv.NEXT_PUBLIC_API_URL);

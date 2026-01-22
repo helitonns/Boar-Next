@@ -6,6 +6,8 @@ interface ListIsssuesParams {
 }
 
 export async function listIssues({ search }: ListIsssuesParams = {}) {
+  "use cahce";
+  
   const url = new URL("/api/issues", clientEnv.NEXT_PUBLIC_API_URL);
 
   if (search) {
