@@ -1,13 +1,15 @@
-import { Input } from "@/components/input";
-import { Skeleton } from "@/components/skeleton";
+import { IssueCommentForm } from "@/app/issues/[id]/issue-comment-form";
+import { IssueCommentsList } from "@/app/issues/[id]/issue-comments/issue-comments-list";
+import { IssueCommentsSkeleton } from "@/app/issues/[id]/issue-comments/issue-commests-skeleton";
+import { IssueLikeButton } from "@/app/issues/[id]/issue-like-button";
+import { createComment } from "@/http/create-comment";
 import { getIssue } from "@/http/get-issue";
-import { ArchiveIcon, MessageCircleIcon, MoveLeftIcon } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { ArchiveIcon, MoveLeftIcon } from "lucide-react";
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
-import { IssueCommentsList } from "./issue-comments/issue-comments-list";
-import { IssueCommentsSkeleton } from "./issue-comments/issue-commests-skeleton";
-import { IssueLikeButton } from "./issue-like-button";
 
 export const generateMetadata = async ({ params }: IssuePageProps): Promise<Metadata> => {
   const { id } = await params;
@@ -31,7 +33,20 @@ const STATUS_LABELS = {
 export default async function IssuePage({ params }: IssuePageProps) {
   const { id } = await params;
 
+  const { data: session } = await authClient.getSession({
+    fetchOptions: {
+      headers: await headers()
+    }
+  });
+  
+  const isAuthenticated = !!session?.user;
+
   const issue = await getIssue({ id });
+
+  async function handleCreateComment(text: string) {
+    "use server";
+    await createComment({issueId:id, text});
+  }
 
   return (
     <main className="max-w-225 mx-auto w-full flex flex-col gap-4 p-6 bg-navy-800 border-[0.5px] border-navy-500 rounded-xl">
@@ -57,16 +72,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
       <div className="flex flex-col gap-2 mt-4">
         <span className="font-semibold">Comments</span>
 
-        <form className="relative w-full">
-          <Input className="bg-navy-900 h-11 pr-24 w-full" placeholder="Leave a comment..." />
-          <button
-            type="submit"
-            className="flex items-center gap-2 text-indigo-400 absolute right-3 top-1/2 -translate-y-1/2
-              text-xs hover:text-indigo-300 cursor-pointer disabled:opacity-50">
-            Publish
-            <MessageCircleIcon className="size-3" />
-          </button>
-        </form>
+        <IssueCommentForm onCreateComment={handleCreateComment} isAuthenticated={isAuthenticated}/>
 
         <div className="mt-3">
           <Suspense fallback={<IssueCommentsSkeleton />}>
