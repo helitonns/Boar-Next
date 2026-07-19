@@ -1,6 +1,7 @@
 import { CommentsListResponseSchema } from "@/api/routes/list-issue-comments";
 import { clientEnv } from "@/env";
 //import { setTimeout } from "node:timers/promises";
+import { cacheTag } from "next/cache";
 
 interface ListIsssueComments {
   issueId?: string;
@@ -9,6 +10,7 @@ interface ListIsssueComments {
 
 export async function listIsssueComments({ issueId }: ListIsssueComments = {}) {
   "use cache";
+  cacheTag(`list-issue-comments${issueId}`);
   //await setTimeout(2000);
 
   const url = new URL(`/api/issues/${issueId}/comments`, clientEnv.NEXT_PUBLIC_API_URL);

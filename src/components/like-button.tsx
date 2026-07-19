@@ -7,6 +7,7 @@ import z from "zod";
 import { Button } from "./button";
 
 type IssueInteractionResponse = z.infer<typeof IssueInteractionsResponseSchema>;
+
 interface LikeButtonProps extends ComponentProps<"button"> {
   issueId: string;
   initialLikes: number;
@@ -16,16 +17,14 @@ interface LikeButtonProps extends ComponentProps<"button"> {
 export function LikeButton({ issueId, initialLikes, initialLiked = false, ...props }: LikeButtonProps) {
   const queryClint = useQueryClient();
 
-  const { mutate: onToogleLIke, isPending } = useMutation({
+  const { mutate: onToogleLike, isPending } = useMutation({
     mutationFn: () => toogleLike({ issueId }),
     onMutate: async () => {
       const previousData = queryClint.getQueriesData<IssueInteractionResponse>({
         queryKey: ["issue-likes"]
       });
 
-      queryClint.setQueriesData<IssueInteractionResponse>(
-        { queryKey: ["issue-likes"] },
-        old => {
+      queryClint.setQueriesData<IssueInteractionResponse>({ queryKey: ["issue-likes"] }, old => {
           if (!old) return undefined;
 
           return {
@@ -59,7 +58,7 @@ export function LikeButton({ issueId, initialLikes, initialLiked = false, ...pro
   function handleToggleLike(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
-    onToogleLIke();
+    onToogleLike();
   }
 
   return (

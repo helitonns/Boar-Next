@@ -1,5 +1,6 @@
 import { CommentSchema } from "@/api/routes/create-comment";
 import { clientEnv } from "@/env";
+import { updateTag } from "next/cache";
 import { headers } from "next/headers";
 import "server-only";
 import { getCookiesFromHeaders } from "./utils/get-cookies-from-headers";
@@ -20,6 +21,8 @@ export async function createComment({ issueId, text }: CreateCommentParams) {
     headers: getCookiesFromHeaders(incomingHeaders)
   });
   const data = await response.json();
+
+  updateTag(`list-issue-comments${issueId}`);
 
   return CommentSchema.parse(data);
 }

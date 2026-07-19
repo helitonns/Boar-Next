@@ -10,7 +10,7 @@ export function SearchInput() {
 
   function handleSearchUpdate(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value, {
-      limitUrlUpdates: event.target.value !== "" ? debounce(350) : undefined,
+      limitUrlUpdates: event.target.value !== "" ? debounce(400) : undefined,
     });
   }
 

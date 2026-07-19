@@ -6,7 +6,7 @@ interface ListIsssuesParams {
 }
 
 export async function listIssues({ search }: ListIsssuesParams = {}) {
-  "use cahce";
+  "use cache";
   
   const url = new URL("/api/issues", clientEnv.NEXT_PUBLIC_API_URL);
 
